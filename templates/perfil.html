@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <div class="perfil-header">
+        <div class="perfil-avatar">👤</div>
+        <div class="perfil-info">
+            <h2>{{ nome }}</h2>
+            <p>{{ email }}</p>
+        </div>
+        <div class="pontos-card" style="margin-left:auto;">
+            <span>Seus pontos</span>
+            <strong>{{ pontos }}</strong>
+        </div>
+    </div>
+
+    <a class="btn" href="/logout" style="display:inline-block;margin-top:10px;">🚪 Sair da conta</a>
+
+</div>
+
+<div class="navbar">
+    <a href="/dashboard">🏠<span>Casa</span></a>
+    <a href="/catalogo">🎁<span>Catálogo</span></a>
+    <a class="active" href="/perfil">👤<span>Perfil</span></a>
+</div>
+
+</body>
+</html>

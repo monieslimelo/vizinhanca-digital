@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Resgate realizado</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="login-container">
+
+    <div class="logo-circle">✅</div>
+
+    <h1>Resgate realizado!</h1>
+
+    <p class="subtitle">
+        Você resgatou <strong>{{ produto }}</strong>
+    </p>
+
+    <div class="pontos-card" style="margin: 25px auto;">
+        <span>Pontos restantes</span>
+        <strong>{{ pontos }}</strong>
+    </div>
+
+    <a class="btn" href="/dashboard">Voltar para dashboard</a>
+
+</div>
+
+</body>
+</html>

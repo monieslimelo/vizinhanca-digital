@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel do Comerciante</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="login-container">
+    <div class="logo-circle">🏪</div>
+
+    <h1>Painel Comerciante</h1>
+    <p class="subtitle">Adicionar pontos para clientes</p>
+
+    <form method="POST">
+        <label>Email do cliente</label>
+        <input type="email" name="email_cliente" placeholder="cliente@email.com" required>
+
+        <label>Pontos</label>
+        <input type="number" name="pontos" placeholder="Ex: 100" required>
+
+        <button class="btn-login">Adicionar pontos</button>
+    </form>
+
+    <p>{{ mensagem }}</p>
+</div>
+
+</body>
+</html>

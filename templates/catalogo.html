@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Catálogo de Produtos</h1>
+
+    <div class="produtos-grid">
+        {% for produto in produtos %}
+        <div class="produto-card">
+            <img src="{{ url_for('static', filename='img/' + produto[4]) }}" alt="{{ produto[1] }}">
+            <div class="produto-card-info">
+                <h2>{{ produto[1] }}</h2>
+                <p>{{ produto[2] }}</p>
+                <p class="pontos">{{ produto[3] }} pontos</p>
+            </div>
+            <a class="btn" href="/resgatar/{{ produto[0] }}">Resgatar</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="navbar">
+    <a href="/dashboard">🏠<span>Casa</span></a>
+    <a class="active" href="/catalogo">🎁<span>Catálogo</span></a>
+    <a href="/perfil">👤<span>Perfil</span></a>
+</div>
+
+</body>
+</html>

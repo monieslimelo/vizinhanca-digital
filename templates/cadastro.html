@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="login-container">
+
+    <div class="logo-circle">🏪</div>
+
+    <h1>Criar conta</h1>
+
+    <p class="subtitle">Entre para o Vizinhança Digital</p>
+
+    <form method="POST">
+
+        <label>Tipo de conta</label>
+        <select name="tipo" required>
+            <option value="cliente">Cliente</option>
+            <option value="comerciante">Comerciante</option>
+        </select>
+
+        <label>Nome</label>
+        <input type="text" name="nome" placeholder="Digite seu nome" required>
+
+        <label>CPF</label>
+        <input type="text" name="cpf" placeholder="000.000.000-00" required>
+
+        <label>Email</label>
+        <input type="email" name="email" placeholder="seu@email.com" required>
+
+        <label>Senha</label>
+        <input type="password" name="senha" placeholder="••••••••" required>
+
+        <button class="btn-login">Cadastrar</button>
+
+    </form>
+
+    <p class="cadastro-link">
+        Já tem conta? <a href="/login">Entrar</a>
+    </p>
+
+</div>
+
+</body>
+</html>

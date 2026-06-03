@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <div class="dashboard-header">
+        <div>
+            <p class="mini-texto">Bem-vindo de volta 👋</p>
+            <h1>{{ nome }}</h1>
+        </div>
+        <div class="pontos-card">
+            <span>Seus pontos</span>
+            <strong>{{ pontos }}</strong>
+        </div>
+    </div>
+
+    <div class="resumo-grid">
+        <a href="/catalogo" style="text-decoration:none;color:inherit;">
+            <div class="resumo-card">
+                <span>🎁</span>
+                <strong>{{ total_produtos }}</strong>
+                <p>Produtos disponíveis</p>
+            </div>
+        </a>
+        <a href="/parceiros" style="text-decoration:none;color:inherit;">
+            <div class="resumo-card">
+                <span>🏪</span>
+                <strong>{{ total_parceiros }}</strong>
+                <p>Parceiros ativos</p>
+            </div>
+        </a>
+        <a href="/historico" style="text-decoration:none;color:inherit;">
+            <div class="resumo-card">
+                <span>📊</span>
+                <strong>{{ total_resgates }}</strong>
+                <p>Resgates feitos</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="acoes-grid">
+        <a class="acao-card" href="/catalogo">
+            <span>🎁</span>
+            <h2>Resgates</h2>
+            <p>Troque seus pontos por produtos.</p>
+        </a>
+        <a class="acao-card" href="/parceiros">
+            <span>🏪</span>
+            <h2>Mercados</h2>
+            <p>Veja parceiros próximos.</p>
+        </a>
+        <a class="acao-card" href="/historico">
+            <span>📊</span>
+            <h2>Histórico</h2>
+            <p>Acompanhe suas movimentações.</p>
+        </a>
+        <a class="acao-card" href="/beneficios">
+            <span>⭐</span>
+            <h2>Benefícios</h2>
+            <p>Confira vantagens disponíveis.</p>
+        </a>
+        {% if tipo == "comerciante" %}
+        <a class="acao-card" href="/comerciante">
+            <span>🏪</span>
+            <h2>Painel Comerciante</h2>
+            <p>Gerencie pontos dos clientes.</p>
+        </a>
+        {% endif %}
+    </div>
+
+</div>
+
+<div class="navbar">
+    <a class="active" href="/dashboard">🏠<span>Casa</span></a>
+    <a href="/catalogo">🎁<span>Catálogo</span></a>
+    <a href="/perfil">👤<span>Perfil</span></a>
+</div>
+
+</body>
+</html>
