@@ -121,13 +121,22 @@ def login():
 
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
-    if request.method == "POST":
-        nome = request.form["nome"]
-        cpf = limpar_cpf(request.form["cpf"])
-        email = request.form["email"]
-        senha = generate_password_hash(request.form["senha"])
-        tipo = request.form["tipo"]
+if request.method == "POST":
 
+    nome = request.form["nome"]
+
+    cpf = limpar_cpf(request.form["cpf"])
+
+    if len(cpf) != 11:
+        return render_template(
+            "erro.html",
+            titulo="CPF inválido",
+            mensagem="Digite um CPF com exatamente 11 números."
+        )
+
+    email = request.form["email"]
+    senha = generate_password_hash(request.form["senha"])
+    tipo = request.form["tipo"]    
         conexao = sqlite3.connect("banco.db")
         cursor = conexao.cursor()
 
