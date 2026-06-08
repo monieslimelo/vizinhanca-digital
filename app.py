@@ -5,9 +5,24 @@ import sqlite3
 app = Flask(__name__)
 app.secret_key = "vizinhanca_digital_123"
 
+def conectar_banco():
+    return sqlite3.connect("banco.db")
+
+
+def usuario_logado():
+    return "email" in session
+
+
+def apenas_comerciante():
+    return session.get("tipo") == "comerciante"
+
+
+def limpar_cpf(cpf):
+    return ''.join(filter(str.isdigit, cpf))
+
 
 def inicializar_banco():
-    conexao = sqlite3.connect("banco.db")
+    conexao = conectar_banco()
     cursor = conexao.cursor()
 
     cursor.execute("""
@@ -78,7 +93,7 @@ def login():
         email = request.form["email"]
         senha_digitada = request.form["senha"]
 
-        conexao = sqlite3.connect("banco.db")
+        conexao = conectar_banco()
         cursor = conexao.cursor()
 
         cursor.execute("""
@@ -93,7 +108,11 @@ def login():
             session["nome"] = usuario[0]
             session["email"] = usuario[1]
             session["tipo"] = usuario[3]
-            return redirect("/dashboard")
+
+            if usuario[3] == "comerciante":
+                return redirect("/comerciante")
+            else:
+                return redirect("/dashboard")
 
         return "<h1>Email ou senha inválidos!</h1><a href='/login'>Voltar</a>"
 
@@ -104,7 +123,7 @@ def login():
 def cadastro():
     if request.method == "POST":
         nome = request.form["nome"]
-        cpf = request.form["cpf"]
+        cpf = limpar_cpf(request.form["cpf"])
         email = request.form["email"]
         senha = generate_password_hash(request.form["senha"])
         tipo = request.form["tipo"]
