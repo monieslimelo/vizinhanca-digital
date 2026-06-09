@@ -121,30 +121,29 @@ def login():
 
 @app.route("/cadastro", methods=["GET", "POST"])
 def cadastro():
-if request.method == "POST":
+    if request.method == "POST":
+        nome = request.form["nome"]
+        cpf = limpar_cpf(request.form["cpf"])
 
-    nome = request.form["nome"]
+        if len(cpf) != 11:
+            return render_template(
+                "erro.html",
+                titulo="CPF inválido",
+                mensagem="Digite um CPF com exatamente 11 números."
+            )
 
-    cpf = limpar_cpf(request.form["cpf"])
+        email = request.form["email"]
+        senha = generate_password_hash(request.form["senha"])
+        tipo = request.form["tipo"]
 
-    if len(cpf) != 11:
-        return render_template(
-            "erro.html",
-            titulo="CPF inválido",
-            mensagem="Digite um CPF com exatamente 11 números."
-        )
-
-    email = request.form["email"]
-    senha = generate_password_hash(request.form["senha"])
-    tipo = request.form["tipo"]    
-        conexao = sqlite3.connect("banco.db")
+        conexao = conectar_banco()
         cursor = conexao.cursor()
 
         try:
             cursor.execute("""
-               INSERT INTO usuarios (nome, email, cpf, senha, pontos, tipo)
-               VALUES (?, ?, ?, ?, ?, ?)
-            """, (nome, email, cpf, senha, 1000, tipo))
+                INSERT INTO usuarios (nome, email, senha, cpf, pontos, tipo)
+                VALUES (?, ?, ?, ?, ?, ?)
+            """, (nome, email, senha, cpf, 1000, tipo))
 
             conexao.commit()
             conexao.close()
@@ -153,10 +152,13 @@ if request.method == "POST":
 
         except sqlite3.IntegrityError:
             conexao.close()
-            return "<h1>Este e-mail já está cadastrado!</h1><a href='/cadastro'>Voltar</a>"
+            return render_template(
+                "erro.html",
+                titulo="Cadastro inválido",
+                mensagem="Este e-mail ou CPF já está cadastrado."
+            )
 
     return render_template("cadastro.html")
-
 
 @app.route("/dashboard")
 def dashboard():

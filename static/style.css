@@ -216,3 +216,24 @@ input:-webkit-autofill {
     .navbar { width: 88%; justify-content: space-around; gap: 0; padding: 14px 20px; }
     h1 { font-size: 26px; }
 }
+.btn-voltar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-bottom: 25px;
+
+    color: #5b3df5;
+    font-weight: 700;
+    text-decoration: none;
+
+    background: white;
+    padding: 12px 18px;
+    border-radius: 14px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.btn-voltar:hover {
+    transform: translateY(-2px);
+}
