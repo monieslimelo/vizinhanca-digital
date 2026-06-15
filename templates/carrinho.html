@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Carrinho</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <main class="page-container">
+
+        <a href="/catalogo" class="btn-voltar">← Voltar</a>
+
+        <section class="perfil-header">
+            <h1>Meu Carrinho</h1>
+            <p>Confira os produtos adicionados antes de finalizar.</p>
+        </section>
+
+        {% if produtos %}
+            <section class="carrinho-lista">
+                {% for produto in produtos %}
+                    <div class="item-carrinho">
+                        <div>
+                            <h3>{{ produto[1] }}</h3>
+                            <p>{{ produto[2] }}</p>
+                        </div>
+
+                        <strong>{{ produto[3] }} pontos</strong>
+                    </div>
+                {% endfor %}
+            </section>
+
+            <section class="carrinho-total">
+                <div>
+                    <span>Total</span>
+                    <strong>{{ total_pontos }} pontos</strong>
+                </div>
+
+                <div class="carrinho-acoes">
+                    <a href="/limpar_carrinho" class="btn-secundario">Limpar carrinho</a>
+                    <a href="/pagamento_pix" class="btn-principal">Finalizar com Pix</a>
+                </div>
+            </section>
+        {% else %}
+            <section class="perfil-card novo-perfil">
+                <h2>Carrinho vazio</h2>
+                <p>Adicione produtos do catálogo para continuar.</p>
+                <br>
+                <a href="/catalogo" class="btn-principal">Ver catálogo</a>
+            </section>
+        {% endif %}
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="/dashboard">
+            <span>🏠</span>
+            Casa
+        </a>
+
+        <a href="/catalogo">
+            <span>🎁</span>
+            Catálogo
+        </a>
+
+        <a href="/perfil">
+            <span>👤</span>
+            Perfil
+        </a>
+    </nav>
+
+</body>
+</html>

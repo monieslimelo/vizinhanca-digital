@@ -3,39 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Catálogo de Produtos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="container">
+    <main class="catalogo-final-container">
 
-<a href="/dashboard" class="btn-voltar">
-    ← Voltar
-</a>
+        <section class="catalogo-final-topo">
+            <div>
+                <a href="/dashboard" class="btn-voltar">← Voltar</a>
 
-<h1>Catálogo de Produtos</h1>
-
-    <div class="produtos-grid">
-        {% for produto in produtos %}
-        <div class="produto-card">
-            <img src="{{ url_for('static', filename='img/' + produto[4]) }}" alt="{{ produto[1] }}">
-            <div class="produto-card-info">
-                <h2>{{ produto[1] }}</h2>
-                <p>{{ produto[2] }}</p>
-                <p class="pontos">{{ produto[3] }} pontos</p>
+                <h1>Catálogo de Produtos</h1>
+                <p>Olá, {{ nome }}. Escolha produtos para resgatar com seus pontos.</p>
             </div>
-            <a class="btn" href="/resgatar/{{ produto[0] }}">Resgatar</a>
-        </div>
-        {% endfor %}
-    </div>
-</div>
 
-<div class="navbar">
-    <a href="/dashboard">🏠<span>Casa</span></a>
-    <a class="active" href="/catalogo">🎁<span>Catálogo</span></a>
-    <a href="/perfil">👤<span>Perfil</span></a>
-</div>
+            <div class="catalogo-final-saldo">
+                <span>Seus pontos</span>
+                <strong>{{ pontos_usuario }}</strong>
+                <a href="/carrinho">🛒 Carrinho</a>
+            </div>
+        </section>
+
+        <section class="catalogo-final-info">
+            <h2>Produtos disponíveis para resgate</h2>
+            <p>
+                Use seus pontos acumulados nos mercados parceiros para trocar por produtos selecionados.
+            </p>
+        </section>
+
+        <section class="catalogo-final-grid">
+
+            {% for produto in produtos %}
+            <div class="catalogo-produto-card">
+
+                <div class="catalogo-produto-imagem">
+                    {% if "Arroz" in produto[1] %}
+                        <span>🍚</span>
+                    {% elif "Feijão" in produto[1] %}
+                        <span>🫘</span>
+                    {% elif "Óleo" in produto[1] %}
+                        <span>🛢️</span>
+                    {% elif "Açúcar" in produto[1] %}
+                        <span>🧂</span>
+                    {% elif "Café" in produto[1] %}
+                        <span>☕</span>
+                    {% elif "Macarrão" in produto[1] %}
+                        <span>🍝</span>
+                    {% elif "Leite" in produto[1] %}
+                        <span>🥛</span>
+                    {% elif "Biscoito" in produto[1] %}
+                        <span>🍪</span>
+                    {% else %}
+                        <span>🛒</span>
+                    {% endif %}
+                </div>
+
+                <div class="catalogo-produto-info">
+                    <h3>{{ produto[1] }}</h3>
+                    <p>{{ produto[2] }}</p>
+                </div>
+
+                <div class="catalogo-produto-pontos">
+                    <span>Custa</span>
+                    <strong>{{ produto[3] }} pontos</strong>
+                </div>
+
+                <div class="catalogo-produto-botoes">
+                    <a href="/adicionar_carrinho/{{ produto[0] }}" class="btn-adicionar">
+                        Adicionar
+                    </a>
+
+                    <a href="/resgatar/{{ produto[0] }}" class="btn-resgatar">
+                        Resgatar
+                    </a>
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </section>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="/dashboard">
+            <span>🏠</span>
+            Casa
+        </a>
+
+        <a href="/catalogo" class="active">
+            <span>🎁</span>
+            Catálogo
+        </a>
+
+        <a href="/beneficios">
+            <span>⭐</span>
+            Benefícios
+        </a>
+
+        <a href="/perfil">
+            <span>👤</span>
+            Perfil
+        </a>
+    </nav>
 
 </body>
 </html>

@@ -2,40 +2,80 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Benefícios</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="container">
+    <main class="page-container">
 
-<a href="/dashboard" class="btn-voltar">
-    ← Voltar
-</a>
+        <a href="/dashboard" class="btn-voltar">← Voltar</a>
 
-<h1>Benefícios</h1>
-    <h1>Benefícios</h1>
+        <section class="perfil-header">
+            <h1>Benefícios</h1>
+            <p>Conheça as vantagens de participar do Vizinhança Digital.</p>
+        </section>
 
-    <div class="acoes-grid">
-        <div class="acao-card">
-            <span>🎟️</span>
-            <h2>Cupom especial</h2>
-            <p>Desconto exclusivo em parceiros locais.</p>
-        </div>
+        <section class="beneficios-grid">
 
-        <div class="acao-card">
-            <span>🔥</span>
-            <h2>Ofertas</h2>
-            <p>Promoções para clientes frequentes.</p>
-        </div>
-    </div>
-</div>
+            <div class="beneficio-card">
+                <div class="beneficio-icone">🎁</div>
+                <h3>Troca por produtos</h3>
+                <p>Use seus pontos para resgatar produtos disponíveis no catálogo.</p>
+            </div>
 
-<div class="navbar">
-    <a class="active" href="/dashboard">🏠 <span>Casa</span></a>
-    <a href="/catalogo">🎁 <span>Catálogo</span></a>
-    <a href="/perfil">👤 <span>Perfil</span></a>
-</div>
+            <div class="beneficio-card">
+                <div class="beneficio-icone">💰</div>
+                <h3>Descontos exclusivos</h3>
+                <p>Clientes fidelizados podem receber descontos em mercados parceiros.</p>
+            </div>
+
+            <div class="beneficio-card">
+                <div class="beneficio-icone">🏪</div>
+                <h3>Mercados parceiros</h3>
+                <p>Compre em comércios locais e acumule pontos no sistema.</p>
+            </div>
+
+            <div class="beneficio-card">
+                <div class="beneficio-icone">📈</div>
+                <h3>Mais economia</h3>
+                <p>Quanto mais o cliente compra, mais benefícios ele pode conquistar.</p>
+            </div>
+
+        </section>
+
+        <section class="beneficio-destaque">
+            <div>
+                <h2>Como funciona?</h2>
+                <p>
+                    O cliente realiza compras nos mercados participantes, acumula pontos
+                    e depois pode trocar esses pontos por produtos, descontos ou vantagens
+                    dentro da plataforma.
+                </p>
+            </div>
+
+            <a href="/catalogo" class="btn-principal">Ver catálogo</a>
+        </section>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="/dashboard">
+            <span>🏠</span>
+            Casa
+        </a>
+
+        <a href="/catalogo">
+            <span>🎁</span>
+            Catálogo
+        </a>
+
+        <a href="/perfil">
+            <span>👤</span>
+            Perfil
+        </a>
+    </nav>
 
 </body>
 </html>

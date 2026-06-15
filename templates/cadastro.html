@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>Criar conta</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -14,37 +14,84 @@
 
     <h1>Criar conta</h1>
 
-    <p class="subtitle">Entre para o Vizinhança Digital</p>
+    <p class="subtitle">
+        Entre para o Vizinhança Digital
+    </p>
 
     <form method="POST">
 
-        <label>Tipo de conta</label>
-        <select name="tipo" required>
-            <option value="cliente">Cliente</option>
-            <option value="comerciante">Comerciante</option>
-        </select>
+            <label>Tipo de conta</label>
+    <select name="tipo" id="tipo" required>
+        <option value="cliente">Cliente</option>
+        <option value="comerciante">Comerciante</option>
+    </select>
 
         <label>Nome</label>
-        <input type="text" name="nome" placeholder="Digite seu nome" required>
+        <input
+            type="text"
+            name="nome"
+            placeholder="Digite seu nome"
+            autocomplete="off"
+            required
+        >
 
         <label>CPF</label>
-        <input type="text" name="cpf" placeholder="000.000.000-00" required>
-
+        <input
+        type="text"
+        name="cpf"
+        id="cpf"
+        placeholder="000.000.000-00"
+        autocomplete="off"
+        required
+        
+        >
+        
         <label>Email</label>
-        <input type="email" name="email" placeholder="seu@email.com" required>
+        <input
+            type="email"
+            name="email"
+            placeholder="seu@email.com"
+            autocomplete="off"
+            required
+        >
 
         <label>Senha</label>
-        <input type="password" name="senha" placeholder="••••••••" required>
+        <input
+            type="password"
+            name="senha"
+            placeholder="••••••••"
+            autocomplete="new-password"
+            required
+        >
 
-        <button class="btn-login">Cadastrar</button>
+        <button class="btn-login">
+            Cadastrar
+        </button>
 
     </form>
 
     <p class="cadastro-link">
-        Já tem conta? <a href="/login">Entrar</a>
+        Já tem conta?
+        <a href="/login">Entrar</a>
     </p>
 
 </div>
+
+<script>
+const cpf = document.getElementById("cpf");
+
+cpf.addEventListener("input", function() {
+    let valor = cpf.value.replace(/\D/g, "");
+    valor = valor.substring(0, 11);
+
+    valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+    valor = valor.replace(/(\d{3})(\d)/, "$1.$2");
+    valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+
+    cpf.value = valor;
+});
+
+</script>
 
 </body>
 </html>

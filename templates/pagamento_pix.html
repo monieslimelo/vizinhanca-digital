@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento Pix</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <main class="page-container">
+
+        <a href="/carrinho" class="btn-voltar">← Voltar</a>
+
+        <section class="perfil-header">
+            <h1>Pagamento via Pix</h1>
+            <p>Simulação de pagamento com QR Code para finalizar a compra.</p>
+        </section>
+
+        <section class="pix-card">
+            <div class="qr-code-simulado">
+                ▦ ▦ ▦<br>
+                ▦ █ ▦<br>
+                ▦ ▦ ▦
+            </div>
+
+            <h2>QR Code Pix gerado</h2>
+
+            <p>Total da compra: <strong>{{ total_pontos }} pontos</strong></p>
+
+            <div class="codigo-pix">
+                PIX-SIMULADO-VIZINHANCA-DIGITAL-{{ total_pontos }}-PONTOS
+            </div>
+
+            <p class="pix-aviso">
+                Esta é uma simulação acadêmica de pagamento via Pix.
+            </p>
+
+            <a href="/limpar_carrinho" class="btn-principal">
+                Concluir simulação
+            </a>
+        </section>
+
+    </main>
+
+</body>
+</html>

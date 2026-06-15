@@ -3,85 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Dashboard do Cliente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="dashboard-container">
+    <main class="dashboard-container-final">
 
-    <div class="dashboard-header">
-        <div>
-            <p class="mini-texto">Bem-vindo de volta 👋</p>
-            <h1>{{ nome }}</h1>
-        </div>
-        <div class="pontos-card">
-            <span>Seus pontos</span>
-            <strong>{{ pontos }}</strong>
-        </div>
-    </div>
+        <section class="dashboard-hero-final">
+            <div>
+                <span>Bem-vindo de volta 👋</span>
+                <h1>{{ nome }}</h1>
+                <p>Acompanhe seus pontos, benefícios e produtos disponíveis para resgate.</p>
+            </div>
 
-    <div class="resumo-grid">
-        <a href="/catalogo" style="text-decoration:none;color:inherit;">
-            <div class="resumo-card">
-                <span>🎁</span>
+            <div class="dashboard-pontos-final">
+                <span>Seus pontos</span>
+                <strong>{{ pontos }}</strong>
+            </div>
+        </section>
+
+        <section class="dashboard-indicadores-final">
+
+            <a href="/catalogo" class="dashboard-indicador-card indicador-link">
+                <div class="indicador-icone">🎁</div>
                 <strong>{{ total_produtos }}</strong>
                 <p>Produtos disponíveis</p>
-            </div>
-        </a>
-        <a href="/parceiros" style="text-decoration:none;color:inherit;">
-            <div class="resumo-card">
-                <span>🏪</span>
+            </a>
+
+            <a href="/parceiros" class="dashboard-indicador-card indicador-link">
+                <div class="indicador-icone">🏪</div>
                 <strong>{{ total_parceiros }}</strong>
                 <p>Parceiros ativos</p>
-            </div>
-        </a>
-        <a href="/historico" style="text-decoration:none;color:inherit;">
-            <div class="resumo-card">
-                <span>📊</span>
+            </a>
+
+            <a href="/historico" class="dashboard-indicador-card indicador-link">
+                <div class="indicador-icone">📊</div>
                 <strong>{{ total_resgates }}</strong>
                 <p>Resgates feitos</p>
-            </div>
-        </a>
-    </div>
+            </a>
 
-    <div class="acoes-grid">
-        <a class="acao-card" href="/catalogo">
+        </section>
+
+        <section class="dashboard-acoes-final">
+
+            <a href="/catalogo" class="dashboard-acao-card">
+                <div class="acao-icone">🎁</div>
+                <h3>Produtos para Resgate</h3>
+                <p>Escolha produtos para trocar por seus pontos.</p>
+            </a>
+
+            <a href="/parceiros" class="dashboard-acao-card">
+                <div class="acao-icone">🏪</div>
+                <h3>Mercados Parceiros</h3>
+                <p>Veja os comércios cadastrados no programa de pontos.</p>
+            </a>
+
+            <a href="/historico" class="dashboard-acao-card">
+                <div class="acao-icone">📊</div>
+                <h3>Histórico de Resgates</h3>
+                <p>Acompanhe os produtos que você já resgatou.</p>
+            </a>
+
+            <a href="/beneficios" class="dashboard-acao-card">
+                <div class="acao-icone">⭐</div>
+                <h3>Benefícios</h3>
+                <p>Confira as vantagens do programa de fidelidade.</p>
+            </a>
+
+        </section>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="/dashboard" class="active">
+            <span>🏠</span>
+            Casa
+        </a>
+
+        <a href="/catalogo">
             <span>🎁</span>
-            <h2>Resgates</h2>
-            <p>Troque seus pontos por produtos.</p>
+            Catálogo
         </a>
-        <a class="acao-card" href="/parceiros">
-            <span>🏪</span>
-            <h2>Mercados</h2>
-            <p>Veja parceiros próximos.</p>
-        </a>
-        <a class="acao-card" href="/historico">
-            <span>📊</span>
-            <h2>Histórico</h2>
-            <p>Acompanhe suas movimentações.</p>
-        </a>
-        <a class="acao-card" href="/beneficios">
-            <span>⭐</span>
-            <h2>Benefícios</h2>
-            <p>Confira vantagens disponíveis.</p>
-        </a>
-        {% if tipo == "comerciante" %}
-        <a class="acao-card" href="/comerciante">
-            <span>🏪</span>
-            <h2>Painel Comerciante</h2>
-            <p>Gerencie pontos dos clientes.</p>
-        </a>
-        {% endif %}
-    </div>
 
-</div>
-
-<div class="navbar">
-    <a class="active" href="/dashboard">🏠<span>Casa</span></a>
-    <a href="/catalogo">🎁<span>Catálogo</span></a>
-    <a href="/perfil">👤<span>Perfil</span></a>
-</div>
+        <a href="/perfil">
+            <span>👤</span>
+            Perfil
+        </a>
+    </nav>
 
 </body>
 </html>

@@ -2,47 +2,81 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Parceiros</title>
-
-    <link rel="stylesheet" href="/static/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mercados Parceiros</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="container">
+    <main class="page-container">
 
-<a href="/dashboard" class="btn-voltar">
-    ← Voltar
-</a>
+        <a href="{% if session.get('tipo') == 'comerciante' %}/comerciante{% else %}/dashboard{% endif %}" class="btn-voltar">
+            ← Voltar
+        </a>
 
-<h1>Parceiros</h1>
+        <section class="perfil-header">
+            <h1>Mercados Parceiros</h1>
+            <p>Conheça os comércios locais participantes do Vizinhança Digital.</p>
+        </section>
 
-    <h1>Parceiros</h1>
+        <section class="parceiros-grid">
 
-    <div class="acoes-grid">
+            {% for parceiro in parceiros %}
+            <div class="parceiro-card">
+                <div class="parceiro-icone">
+                    {{ parceiro.icone }}
+                </div>
 
-        {% for parceiro in parceiros %}
+                <div class="parceiro-conteudo">
+                   <h3>{{ parceiro.nome }}</h3>
+                   <p><strong>{{ parceiro.tipo }}</strong></p>
+                   <p>{{ parceiro.beneficio }}</p>
+                   <p class="parceiro-endereco">📍 {{ parceiro.endereco }}</p>
 
-        <div class="acao-card">
+                    <span class="parceiro-status">
+                        Parceiro ativo
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
 
-            <span>{{ parceiro.icone }}</span>
+        </section>
 
-            <h2>{{ parceiro.nome }}</h2>
+        <section class="beneficio-destaque">
+            <div>
+                <h2>Comércio local mais forte</h2>
+                <p>
+                    A plataforma aproxima clientes dos mercados de bairro,
+                    incentiva compras recorrentes e fortalece pequenos comerciantes.
+                </p>
+            </div>
 
-            <p>{{ parceiro.beneficio }}</p>
+            <a href="/beneficios" class="btn-principal">Ver benefícios</a>
+        </section>
 
-        </div>
+    </main>
 
-        {% endfor %}
+    <nav class="bottom-nav">
+        <a href="{% if session.get('tipo') == 'comerciante' %}/comerciante{% else %}/dashboard{% endif %}">
+            <span>🏠</span>
+            Casa
+        </a>
 
-    </div>
+        <a href="/beneficios">
+            <span>🎁</span>
+            Benefícios
+        </a>
 
-</div>
+        <a href="/parceiros" class="active">
+            <span>🏪</span>
+            Parceiros
+        </a>
 
-<div class="navbar">
-    <a class="active" href="/dashboard">🏠 <span>Casa</span></a>
-    <a href="/catalogo">🎁 <span>Catálogo</span></a>
-    <a href="/perfil">👤 <span>Perfil</span></a>
-</div>
+        <a href="/perfil">
+            <span>👤</span>
+            Perfil
+        </a>
+    </nav>
 
 </body>
 </html>

@@ -3,39 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Histórico</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Histórico de Resgates</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="container">
+    <main class="page-container">
 
-<a href="/dashboard" class="btn-voltar">
-    ← Voltar
-</a>
+        <a href="/dashboard" class="btn-voltar">← Voltar</a>
 
-<h1>Histórico de Resgates</h1>
+        <section class="perfil-header">
+            <h1>Histórico de Resgates</h1>
+            <p>Acompanhe os produtos que você já resgatou com seus pontos.</p>
+        </section>
 
-    <div class="grid">
-        {% for item in historico %}
-        <div class="card">
-            <div>
-                <h2>{{ item[0] }}</h2>
-                <p>{{ item[2] }}</p>
-            </div>
-            <div class="pontos-usados">-{{ item[1] }} pts</div>
-        </div>
+        {% if historico %}
+            <section class="historico-lista">
+                {% for item in historico %}
+                    <div class="historico-card">
+                        <div class="historico-icone">🎁</div>
+
+                        <div class="historico-info">
+                            <h3>{{ item[0] }}</h3>
+                            <p>Resgate realizado em {{ item[2] }}</p>
+                        </div>
+
+                        <strong>{{ item[1] }} pontos</strong>
+                    </div>
+                {% endfor %}
+            </section>
         {% else %}
-        <p style="color:#6b7280;margin-top:20px;">Nenhum resgate ainda.</p>
-        {% endfor %}
-    </div>
-</div>
+            <section class="perfil-card novo-perfil">
+                <h2>Nenhum resgate encontrado</h2>
+                <p>Você ainda não resgatou produtos. Acesse o catálogo e escolha um benefício.</p>
+                <br>
+                <a href="/catalogo" class="btn-principal">Ver catálogo</a>
+            </section>
+        {% endif %}
 
-<div class="navbar">
-    <a href="/dashboard">🏠<span>Casa</span></a>
-    <a href="/catalogo">🎁<span>Catálogo</span></a>
-    <a class="active" href="/perfil">👤<span>Perfil</span></a>
-</div>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="/dashboard">
+            <span>🏠</span>
+            Casa
+        </a>
+
+        <a href="/catalogo">
+            <span>🎁</span>
+            Catálogo
+        </a>
+
+        <a href="/perfil">
+            <span>👤</span>
+            Perfil
+        </a>
+    </nav>
 
 </body>
 </html>

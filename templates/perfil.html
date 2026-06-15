@@ -3,40 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Meu Perfil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="container">
+    <main class="page-container">
 
-<a href="/dashboard" class="btn-voltar">
-    ← Voltar
-</a>
+        <a href="{% if tipo == 'comerciante' %}/comerciante{% else %}/dashboard{% endif %}" class="btn-voltar">
+            ← Voltar
+        </a>
 
-<h1>Meu Perfil</h1>
+        <section class="perfil-header">
+            <h1>Meu Perfil</h1>
+            <p>Veja suas informações cadastradas no Vizinhança Digital.</p>
+        </section>
 
-    <div class="perfil-header">
-        <div class="perfil-avatar">👤</div>
-        <div class="perfil-info">
-            <h2>{{ nome }}</h2>
-            <p>{{ email }}</p>
-        </div>
-        <div class="pontos-card" style="margin-left:auto;">
-            <span>Seus pontos</span>
-            <strong>{{ pontos }}</strong>
-        </div>
-    </div>
+        <section class="perfil-card novo-perfil">
 
-    <a class="btn" href="/logout" style="display:inline-block;margin-top:10px;">🚪 Sair da conta</a>
+            <div class="perfil-topo">
+                <div class="perfil-avatar-grande">
+                    👤
+                </div>
 
-</div>
+                <div class="perfil-identidade">
+                    <h2>{{ nome }}</h2>
+                    <p>{{ email }}</p>
 
-<div class="navbar">
-    <a href="/dashboard">🏠<span>Casa</span></a>
-    <a href="/catalogo">🎁<span>Catálogo</span></a>
-    <a class="active" href="/perfil">👤<span>Perfil</span></a>
-</div>
+                    <span class="perfil-badge">
+                        {{ tipo|capitalize }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="perfil-dados-grid">
+
+                <div class="perfil-info-box">
+                    <span>CPF</span>
+                    <strong>{{ cpf if cpf else "Não informado" }}</strong>
+                </div>
+
+                <div class="perfil-info-box">
+                    <span>Tipo de conta</span>
+                    <strong>{{ tipo|capitalize }}</strong>
+                </div>
+
+                <div class="perfil-info-box destaque-pontos">
+                    <span>Pontos disponíveis</span>
+                    <strong>{{ pontos }}</strong>
+                </div>
+
+            </div>
+
+            <div class="perfil-acoes">
+                {% if tipo == "comerciante" %}
+                    <a href="/comerciante" class="btn-principal">Ir para painel do comerciante</a>
+                {% else %}
+                    <a href="/catalogo" class="btn-principal">Ver catálogo de benefícios</a>
+                    <a href="/historico" class="btn-secundario">Ver histórico</a>
+                {% endif %}
+            </div>
+
+        </section>
+
+        <a href="/logout" class="btn-sair">
+            🚪 Sair da conta
+        </a>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="{% if tipo == 'comerciante' %}/comerciante{% else %}/dashboard{% endif %}">
+            <span>🏠</span>
+            Casa
+        </a>
+
+        {% if tipo != "comerciante" %}
+        <a href="/catalogo">
+            <span>🎁</span>
+            Catálogo
+        </a>
+        {% endif %}
+
+        <a href="/perfil" class="active">
+            <span>👤</span>
+            Perfil
+        </a>
+    </nav>
 
 </body>
 </html>

@@ -2,35 +2,144 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel do Comerciante</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="container">
+    <main class="page-container">
 
-<a href="/dashboard" class="btn-voltar">
-    ← Voltar
-</a>
+        <div class="topo-comerciante">
+            <a href="/perfil" class="btn-voltar">👤 Meu Perfil</a>
+            <a href="/logout" class="btn-sair-topo">🚪 Sair</a>
+        </div>
 
-<h1>Painel do Comerciante</h1>
-    <div class="logo-circle">🏪</div>
+        <section class="comerciante-hero">
+            <div>
+                <span>Painel principal</span>
+                <h1>Painel do Comerciante</h1>
+                <p>Olá, {{ nome|default("comerciante") }}. Gerencie clientes, pontos e benefícios do Vizinhança Digital.</p>
+            </div>
+        </section>
 
-    <h1>Painel Comerciante</h1>
-    <p class="subtitle">Adicionar pontos para clientes</p>
+        <section class="cards-comerciante">
 
-    <form method="POST">
-        <label>Email do cliente</label>
-        <input type="email" name="email_cliente" placeholder="cliente@email.com" required>
+            <div class="card-comerciante">
+                <span>👥</span>
+                <h3>{{ total_clientes|default(0) }}</h3>
+                <p>Clientes cadastrados</p>
+            </div>
 
-        <label>Pontos</label>
-        <input type="number" name="pontos" placeholder="Ex: 100" required>
+            <div class="card-comerciante">
+                <span>🎁</span>
+                <h3>{{ total_produtos|default(0) }}</h3>
+                <p>Produtos disponíveis</p>
+            </div>
 
-        <button class="btn-login">Adicionar pontos</button>
-    </form>
+            <div class="card-comerciante">
+                <span>📊</span>
+                <h3>{{ total_resgates|default(0) }}</h3>
+                <p>Resgates realizados</p>
+            </div>
 
-    <p>{{ mensagem }}</p>
-</div>
+        </section>
+
+        <section class="comerciante-grid">
+
+            <div class="form-card-comerciante">
+                <div>
+                    <h2>Adicionar pontos</h2>
+                    <p>Informe o CPF do cliente e a quantidade de pontos que deseja adicionar após uma compra.</p>
+                </div>
+
+                <form method="POST" class="form-pontos">
+                    <label for="cpf_cliente">CPF do cliente</label>
+                    <input 
+                        type="text" 
+                        id="cpf_cliente"
+                        name="cpf_cliente" 
+                        placeholder="000.000.000-00" 
+                        required
+                    >
+
+                    <label for="pontos">Quantidade de pontos</label>
+                    <input 
+                        type="number" 
+                        id="pontos"
+                        name="pontos" 
+                        placeholder="Ex: 100" 
+                        min="1"
+                        required
+                    >
+
+                    <button type="submit" class="btn-principal">
+                        Adicionar pontos
+                    </button>
+                </form>
+
+                {% if mensagem %}
+                    <div class="mensagem-comerciante">
+                        {{ mensagem }}
+                    </div>
+                {% endif %}
+            </div>
+            <section class="atalhos-final">
+    <h2>Atalhos do sistema</h2>
+    <p>Acesse rapidamente as principais áreas do projeto.</p>
+
+    <div class="atalhos-final-grid">
+
+        <a href="/beneficios" class="atalho-final-card">
+            <div class="atalho-final-icone">⭐</div>
+            <div>
+                <h3>Benefícios</h3>
+                <p>Veja as vantagens oferecidas aos clientes.</p>
+            </div>
+        </a>
+
+        <a href="/parceiros" class="atalho-final-card">
+            <div class="atalho-final-icone">🏪</div>
+            <div>
+                <h3>Mercados parceiros</h3>
+                <p>Consulte os comércios participantes.</p>
+            </div>
+        </a>
+
+        <a href="/perfil" class="atalho-final-card">
+            <div class="atalho-final-icone">👤</div>
+            <div>
+                <h3>Meu perfil</h3>
+                <p>Veja os dados da conta do comerciante.</p>
+            </div>
+        </a>
+
+    </div>
+</section> 
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="/comerciante" class="active">
+            <span>🏠</span>
+            Casa
+        </a>
+
+        <a href="/beneficios">
+            <span>⭐</span>
+            Benefícios
+        </a>
+
+        <a href="/parceiros">
+            <span>🏪</span>
+            Parceiros
+        </a>
+
+        <a href="/perfil">
+            <span>👤</span>
+            Perfil
+        </a>
+    </nav>
 
 </body>
 </html>

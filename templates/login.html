@@ -44,19 +44,27 @@
             required
         >
 
-        <label>Senha</label>
+       <label>Senha</label>
 
-        <input
-            type="password"
-            name="senha"
-            placeholder="••••••••"
-            required
-        >
+<div class="senha-box">
 
-        <button class="btn-login">
-            Entrar
-        </button>
+    <input
+        type="password"
+        name="senha"
+        id="senha"
+        placeholder="••••••••"
+        required
+    >
 
+</div>
+
+     <button class="btn-login">
+    Entrar
+</button>
+
+{% if mensagem %}
+    <p class="mensagem-erro">{{ mensagem }}</p>
+{% endif %}
     </form>
 
     <p class="cadastro-link">
@@ -65,6 +73,20 @@
     </p>
 
 </div>
+
+<script>
+function mostrarSenha() {
+
+    let campo = document.getElementById("senha");
+
+    if (campo.type === "password") {
+        campo.type = "text";
+    } else {
+        campo.type = "password";
+    }
+
+}
+</script>
 
 </body>
 </html>
