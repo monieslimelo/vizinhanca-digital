@@ -130,3 +130,10 @@ O Git Flow foi utilizado para organizar o desenvolvimento e a entrega da aplica�
 A branch `main` representa a versão final e estável, a branch `develop` concentra o desenvolvimento e a branch `feature/documentacao-git-flow` registra a documentação da funcionalidade e das etapas de construção.
 
 Esse fluxo ajuda a organizar o desenvolvimento, evitar alterações diretas na versão principal e demonstrar uma metodologia profissional de versionamento.
+## 8. Visualização do fluxo no Git Graph
+
+Para demonstrar visualmente o uso do Git Flow, o projeto também foi analisado por meio da extensão Git Graph no Visual Studio Code.
+
+Essa ferramenta permite visualizar os commits, branches e merges do projeto, facilitando a apresentação do fluxo entre `main`, `develop` e branches de feature.
+
+Com isso, é possível comprovar que o projeto utilizou uma organização baseada em Git Flow, separando a versão estável, o ambiente de desenvolvimento e as funcionalidades/documentações criadas em branches específicas.
