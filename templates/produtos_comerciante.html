@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produtos Disponíveis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <main class="page-container">
+
+        <a href="/comerciante" class="btn-voltar">← Voltar</a>
+
+        <section class="perfil-header">
+            <h1>Produtos disponíveis</h1>
+            <p>Produtos cadastrados para resgate no programa de pontos.</p>
+        </section>
+
+        <section class="produtos-comerciante-grid">
+
+            {% for produto in produtos %}
+            <div class="produto-comerciante-card">
+
+                <div class="produto-comerciante-icone">
+                    {% if "Arroz" in produto[1] %}
+                        🍚
+                    {% elif "Feijão" in produto[1] %}
+                        🫘
+                    {% elif "Óleo" in produto[1] %}
+                        🛢️
+                    {% elif "Açúcar" in produto[1] %}
+                        🧂
+                    {% elif "Café" in produto[1] %}
+                        ☕
+                    {% elif "Macarrão" in produto[1] %}
+                        🍝
+                    {% elif "Leite" in produto[1] %}
+                        🥛
+                    {% elif "Biscoito" in produto[1] %}
+                        🍪
+                    {% else %}
+                        🛒
+                    {% endif %}
+                </div>
+
+                <h3>{{ produto[1] }}</h3>
+                <p>{{ produto[2] }}</p>
+
+                <div class="produto-comerciante-pontos">
+                    <span>Valor para resgate</span>
+                    <strong>{{ produto[3] }} pontos</strong>
+                </div>
+
+            </div>
+            {% endfor %}
+
+        </section>
+
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="/comerciante">
+            <span>🏠</span>
+            Casa
+        </a>
+
+        <a href="/beneficios">
+            <span>⭐</span>
+            Benefícios
+        </a>
+
+        <a href="/parceiros">
+            <span>🏪</span>
+            Parceiros
+        </a>
+
+        <a href="/perfil">
+            <span>👤</span>
+            Perfil
+        </a>
+    </nav>
+
+</body>
+</html>

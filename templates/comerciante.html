@@ -8,50 +8,80 @@
 </head>
 <body>
 
-    <main class="page-container">
+    <main class="comerciante-container">
 
-        <div class="topo-comerciante">
-            <a href="/perfil" class="btn-voltar">👤 Meu Perfil</a>
-            <a href="/logout" class="btn-sair-topo">🚪 Sair</a>
-        </div>
-
-        <section class="comerciante-hero">
-            <div>
-                <span>Painel principal</span>
-                <h1>Painel do Comerciante</h1>
-                <p>Olá, {{ nome|default("comerciante") }}. Gerencie clientes, pontos e benefícios do Vizinhança Digital.</p>
-            </div>
+        <section class="comerciante-hero-novo">
+            <span>Painel principal</span>
+            <h1>Painel do Comerciante</h1>
+            <p>
+                Olá, {{ nome }}. Gerencie clientes, pontos e benefícios do Vizinhança Digital.
+            </p>
         </section>
 
-        <section class="cards-comerciante">
+        <section class="comerciante-indicadores">
 
-            <div class="card-comerciante">
+            <div class="indicador-card">
                 <span>👥</span>
-                <h3>{{ total_clientes|default(0) }}</h3>
+                <strong>{{ total_clientes }}</strong>
                 <p>Clientes cadastrados</p>
             </div>
 
-            <div class="card-comerciante">
+            <a href="/produtos_comerciante" class="indicador-card indicador-click">
                 <span>🎁</span>
-                <h3>{{ total_produtos|default(0) }}</h3>
+                <strong>{{ total_produtos }}</strong>
                 <p>Produtos disponíveis</p>
-            </div>
+            </a>
 
-            <div class="card-comerciante">
+            <div class="indicador-card">
                 <span>📊</span>
-                <h3>{{ total_resgates|default(0) }}</h3>
+                <strong>{{ total_resgates }}</strong>
                 <p>Resgates realizados</p>
             </div>
 
         </section>
 
-        <section class="comerciante-grid">
+        <section class="clientes-cadastrados-card">
+            <div class="clientes-topo">
+                <h2>Clientes cadastrados</h2>
+                <p>Consulte os clientes registrados no programa de pontos.</p>
+            </div>
 
-            <div class="form-card-comerciante">
-                <div>
-                    <h2>Adicionar pontos</h2>
-                    <p>Informe o CPF do cliente e a quantidade de pontos que deseja adicionar após uma compra.</p>
+            {% if clientes %}
+                <div class="tabela-clientes">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>E-mail</th>
+                                <th>CPF</th>
+                                <th>Pontos</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for cliente in clientes %}
+                            <tr>
+                                <td>{{ cliente[0] }}</td>
+                                <td>{{ cliente[1] }}</td>
+                                <td>{{ cliente[2] }}</td>
+                                <td><strong>{{ cliente[3] }}</strong></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
+            {% else %}
+                <p class="sem-clientes">Nenhum cliente cadastrado ainda.</p>
+            {% endif %}
+        </section>
+
+        <section class="comerciante-conteudo">
+
+            <div class="painel-pontos">
+                <h2>Adicionar pontos</h2>
+                <p>
+                    Informe o CPF do cliente e a quantidade de pontos que deseja adicionar após uma compra.
+                </p>
 
                 <form method="POST" class="form-pontos">
                     <label for="cpf_cliente">CPF do cliente</label>
@@ -84,38 +114,37 @@
                     </div>
                 {% endif %}
             </div>
-            <section class="atalhos-final">
-    <h2>Atalhos do sistema</h2>
-    <p>Acesse rapidamente as principais áreas do projeto.</p>
 
-    <div class="atalhos-final-grid">
+            <div class="painel-atalhos">
+                <h2>Atalhos do sistema</h2>
+                <p>Acesse rapidamente as principais áreas do projeto.</p>
 
-        <a href="/beneficios" class="atalho-final-card">
-            <div class="atalho-final-icone">⭐</div>
-            <div>
-                <h3>Benefícios</h3>
-                <p>Veja as vantagens oferecidas aos clientes.</p>
+                <a href="/beneficios" class="atalho-comerciante">
+                    <span>⭐</span>
+                    <div>
+                        <strong>Benefícios</strong>
+                        <p>Veja as vantagens oferecidas aos clientes.</p>
+                    </div>
+                </a>
+
+                <a href="/parceiros" class="atalho-comerciante">
+                    <span>🏪</span>
+                    <div>
+                        <strong>Mercados parceiros</strong>
+                        <p>Consulte os comércios participantes.</p>
+                    </div>
+                </a>
+
+                <a href="/perfil" class="atalho-comerciante">
+                    <span>👤</span>
+                    <div>
+                        <strong>Meu perfil</strong>
+                        <p>Veja os dados da conta do comerciante.</p>
+                    </div>
+                </a>
             </div>
-        </a>
 
-        <a href="/parceiros" class="atalho-final-card">
-            <div class="atalho-final-icone">🏪</div>
-            <div>
-                <h3>Mercados parceiros</h3>
-                <p>Consulte os comércios participantes.</p>
-            </div>
-        </a>
-
-        <a href="/perfil" class="atalho-final-card">
-            <div class="atalho-final-icone">👤</div>
-            <div>
-                <h3>Meu perfil</h3>
-                <p>Veja os dados da conta do comerciante.</p>
-            </div>
-        </a>
-
-    </div>
-</section> 
+        </section>
 
     </main>
 

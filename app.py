@@ -51,11 +51,6 @@ def inicializar_banco():
         )
     """)
 
-    try:
-        cursor.execute("ALTER TABLE usuarios ADD COLUMN cnpj TEXT")
-    except sqlite3.OperationalError:
-        pass
-
     produtos = [
         ("Arroz Tipo 1", "Pacote 1kg", 500, "arroz.png"),
         ("Feijão Preto", "Pacote 1kg", 400, "feijao.png"),
@@ -217,6 +212,7 @@ def catalogo():
 
     if session.get("tipo") == "comerciante":
         return redirect("/comerciante")
+
     conexao = conectar_banco()
     cursor = conexao.cursor()
 
@@ -313,6 +309,7 @@ def resgatar(produto_id):
         pontos=novos_pontos
     )
 
+
 @app.route("/historico")
 def historico():
     if "email" not in session:
@@ -342,7 +339,7 @@ def perfil():
     if "usuario_id" not in session:
         return redirect(url_for("login"))
 
-    conexao = sqlite3.connect("banco.db")
+    conexao = conectar_banco()
     conexao.row_factory = sqlite3.Row
     cursor = conexao.cursor()
 
@@ -382,36 +379,38 @@ def parceiros():
         return redirect("/login")
 
     parceiros = [
-    {
-        "nome": "Mercadinho Central",
-        "tipo": "Mercado de bairro",
-        "beneficio": "5% de cashback em compras acima de R$ 50,00",
-        "endereco": "Centro - Aracaju/SE",
-        "icone": "🛒"
-    },
-    {
-        "nome": "Café da Praça",
-        "tipo": "Cafeteria local",
-        "beneficio": "2x pontos em produtos selecionados",
-        "endereco": "Siqueira Campos - Aracaju/SE",
-        "icone": "☕"
-    },
-    {
-        "nome": "Farmácia Popular",
-        "tipo": "Farmácia parceira",
-        "beneficio": "10% de desconto para clientes cadastrados",
-        "endereco": "Santos Dumont - Aracaju/SE",
-        "icone": "💊"
-    },
-    {
-        "nome": "Padaria Ideal",
-        "tipo": "Panificação parceira",
-        "beneficio": "Pão grátis acima de 1000 pontos",
-        "endereco": "Farolândia - Aracaju/SE",
-        "icone": "🥖"
-    },
-]
+        {
+            "nome": "Mercadinho Central",
+            "tipo": "Mercado de bairro",
+            "beneficio": "5% de cashback em compras acima de R$ 50,00",
+            "endereco": "Centro - Aracaju/SE",
+            "icone": "🛒"
+        },
+        {
+            "nome": "Café da Praça",
+            "tipo": "Cafeteria local",
+            "beneficio": "2x pontos em produtos selecionados",
+            "endereco": "Siqueira Campos - Aracaju/SE",
+            "icone": "☕"
+        },
+        {
+            "nome": "Farmácia Popular",
+            "tipo": "Farmácia parceira",
+            "beneficio": "10% de desconto para clientes cadastrados",
+            "endereco": "Santos Dumont - Aracaju/SE",
+            "icone": "💊"
+        },
+        {
+            "nome": "Padaria Ideal",
+            "tipo": "Panificação parceira",
+            "beneficio": "Pão grátis acima de 1000 pontos",
+            "endereco": "Farolândia - Aracaju/SE",
+            "icone": "🥖"
+        },
+    ]
+
     return render_template("parceiros.html", parceiros=parceiros)
+
 
 @app.route("/comerciante", methods=["GET", "POST"])
 def comerciante():
@@ -452,7 +451,7 @@ def comerciante():
             conexao.commit()
             mensagem = f"✅ {pontos} pontos adicionados para {cliente[0]}."
         else:
-            mensagem = "❌ Cliente não encontrado."
+            mensagem = "❌ Cliente não encontrado. Verifique se o CPF está correto."
 
         conexao.close()
 
@@ -468,16 +467,54 @@ def comerciante():
     cursor.execute("SELECT COUNT(*) FROM historico")
     total_resgates = cursor.fetchone()[0]
 
+    cursor.execute("""
+        SELECT nome, email, cpf, pontos
+        FROM usuarios
+        WHERE tipo = 'cliente'
+        ORDER BY nome ASC
+    """)
+    clientes = cursor.fetchall()
+
     conexao.close()
 
     return render_template(
         "comerciante.html",
         mensagem=mensagem,
         nome=session.get("nome"),
+        email=session.get("email"),
+        tipo=session.get("tipo"),
         total_clientes=total_clientes,
         total_produtos=total_produtos,
-        total_resgates=total_resgates
+        total_resgates=total_resgates,
+        clientes=clientes
     )
+
+
+@app.route("/produtos_comerciante")
+def produtos_comerciante():
+    if "email" not in session:
+        return redirect("/login")
+
+    if session.get("tipo") != "comerciante":
+        return redirect("/dashboard")
+
+    conexao = conectar_banco()
+    cursor = conexao.cursor()
+
+    cursor.execute("""
+        SELECT id, nome, descricao, pontos
+        FROM produtos
+        ORDER BY nome ASC
+    """)
+
+    produtos = cursor.fetchall()
+    conexao.close()
+
+    return render_template(
+        "produtos_comerciante.html",
+        produtos=produtos
+    )
+
 
 @app.route("/adicionar_carrinho/<int:produto_id>")
 def adicionar_carrinho(produto_id):
@@ -530,6 +567,7 @@ def carrinho():
         total_pontos=total_pontos
     )
 
+
 @app.route("/limpar_carrinho")
 def limpar_carrinho():
     if "email" not in session:
@@ -540,6 +578,7 @@ def limpar_carrinho():
 
     session["carrinho"] = []
     return redirect("/carrinho")
+
 
 @app.route("/pagamento_pix")
 def pagamento_pix():
